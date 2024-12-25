@@ -1,9 +1,9 @@
 package com.example.stepup
 
-import com.example.stepup.ui.screens.PasswordRecoveryScreen //tamamlandı
-import com.example.stepup.ui.screens.NotificationAgreementScreen //tamamlandı
-import com.example.stepup.ui.screens.CreateAccountScreen //visible iconu dışında tamamlandı
-import com.example.stepup.ui.screens.HomeScreen //tamamlandı
+import com.example.stepup.ui.screens.PasswordRecoveryScreen
+import com.example.stepup.ui.screens.NotificationAgreementScreen
+import com.example.stepup.ui.screens.CreateAccountScreen
+import com.example.stepup.ui.screens.HomeScreen
 import com.example.stepup.ui.screens.TermsOfUseScreen
 import androidx.activity.ComponentActivity
 import android.os.Bundle

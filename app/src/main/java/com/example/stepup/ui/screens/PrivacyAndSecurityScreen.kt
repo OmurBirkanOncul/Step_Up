@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    val currentScreen by remember { mutableStateOf("privacy") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     //Sidebar
@@ -37,7 +37,8 @@ fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (B
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = "privacy"
             )
         }
     ) {

@@ -26,7 +26,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun TermsOfUseScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    val currentScreen by remember { mutableStateOf("terms_of_use") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -34,6 +34,7 @@ fun TermsOfUseScreen(navController: NavHostController, onThemeToggle: (Boolean) 
         drawerState = drawerState,
         drawerContent = {
             Sidebar(
+                currentScreen = "terms_of_use",
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
                 navController = navController

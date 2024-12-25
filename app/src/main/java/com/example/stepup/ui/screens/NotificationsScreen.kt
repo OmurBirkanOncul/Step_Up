@@ -42,7 +42,7 @@ fun NotificationsScreen(navController: NavHostController, onThemeToggle: (Boolea
         Notification("System Alert", "Your subscription will expire soon.")
     )
 
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    val currentScreen by remember { mutableStateOf("notifications") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -52,7 +52,8 @@ fun NotificationsScreen(navController: NavHostController, onThemeToggle: (Boolea
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = "notifications"
             )
         }
     ) {

@@ -93,7 +93,7 @@ fun SwipeableTaskCard(
             Button(
                 onClick = {/*Skip*/ },
                 shape = MaterialTheme.shapes.large,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF2FCC71)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 modifier = Modifier
                     .width(90.dp)
                     .fillMaxHeight()
@@ -115,7 +115,7 @@ fun SwipeableTaskCard(
             Button(
                 onClick = {/*Skip*/ },
                 shape = MaterialTheme.shapes.large,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDA7008)),
+                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF2C2C)),
                 modifier = Modifier
                     .width(90.dp)
                     .fillMaxHeight()
@@ -194,7 +194,7 @@ fun SwipeableTaskCard(
 
 @Composable
 fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("home") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
     //var taskList by remember { mutableStateOf(listOf<Task>()) } // Dinamik Task Listesi
@@ -213,7 +213,7 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
         ),
         Task(
             title = "Read a Book", description = "Read 20 pages",
-            timeLabel = "45 Min", iconId = R.drawable.close
+            timeLabel = "45 Min", iconId = R.drawable.cancel
         )
     )
 
@@ -224,7 +224,8 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = currentScreen
             )
         }
     ) {
@@ -256,7 +257,7 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
             bottomBar = {
                 BottomNavBar(
                     navController = navController,
-                    currentScreen = currentScreen,
+                    currentScreen = "home",
                     onScreenSelected = { selectedScreen ->
                         currentScreen = selectedScreen
                         navController.navigate(selectedScreen)
@@ -361,12 +362,12 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                     Button(
                         onClick = { /* Navigate to Tasks */ },
                         shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
                         modifier = Modifier
                             .width(200.dp)
                             .height(50.dp)
                     ) {
-                        Text("My Tasks", color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                        Text("My Tasks", color = MaterialTheme.colorScheme.onBackground, fontSize = 20.sp)
                     }
 
                     Spacer(modifier = Modifier.height(16.dp))

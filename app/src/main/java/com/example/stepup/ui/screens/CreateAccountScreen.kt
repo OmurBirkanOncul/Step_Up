@@ -49,7 +49,7 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                     Box(
                         modifier = Modifier
                             .size(40.dp) // karenin boyutunu ayarı
-                            .background(MaterialTheme.colorScheme.primary,
+                            .background(MaterialTheme.colorScheme.background,
                                 shape = MaterialTheme.shapes.medium) // kare
                             .padding(8.dp) // ikonun iç kenar boşluğu
                     ) {
@@ -57,7 +57,7 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -70,7 +70,6 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
         content = { innerPadding ->
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(innerPadding)
                     .padding(horizontal = 24.dp)
                     .background(MaterialTheme.colorScheme.background),
@@ -78,14 +77,15 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
-                Spacer(modifier = Modifier.height(120.dp))
+                Spacer(modifier = Modifier.height(180.dp))
                 Row(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "Create new account",
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontSize = 20.sp,
+                        text = "Create New Account",
+                        color = MaterialTheme.colorScheme.primary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 23.sp,
                     )
                 }
 
@@ -114,8 +114,9 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                     trailingIcon = {
                         IconButton(onClick = { email = "" }) {
                             Icon(
-                                painter = painterResource(id = R.drawable.close),
+                                painter = painterResource(id = R.drawable.cancel),
                                 contentDescription = "Clear",
+                                modifier = Modifier.size(18.dp),
                                 tint = MaterialTheme.colorScheme.primary
                             )
                         }
@@ -146,18 +147,19 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                         ),
                     trailingIcon = {
                         val image =
-                            if (passwordVisible) R.drawable.notification else R.drawable.visible_off
+                            if (passwordVisible) R.drawable.visible else R.drawable.visible_off
                         IconButton(onClick = { passwordVisible = !passwordVisible }) {
                             Icon(
                                 painter = painterResource(id = image),
                                 contentDescription = "Toggle Password Visibility",
-                                tint = MaterialTheme.colorScheme.primary
+                                tint = MaterialTheme.colorScheme.primary,
+                                modifier = Modifier.size(20.dp)
                             )
                         }
                     }
                 )
 
-                Spacer(modifier = Modifier.height(72.dp))
+                Spacer(modifier = Modifier.height(220.dp))
 
                 // Create Button
                 Button(
@@ -177,22 +179,6 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
                         fontWeight = FontWeight.Bold
                     )
                 }
-
-                Spacer(modifier = Modifier.height(150.dp))
-
-                // Terms and Privacy
-                Text(
-                    text = "By continuing you agree StepUp’s",
-                    color = MaterialTheme.colorScheme.secondary,
-                    fontSize = 12.sp,
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = "Terms of services & Privacy Policy",
-                    color = MaterialTheme.colorScheme.tertiary,
-                    fontSize = 12.sp,
-                    textAlign = TextAlign.Center
-                )
             }
         }
     )

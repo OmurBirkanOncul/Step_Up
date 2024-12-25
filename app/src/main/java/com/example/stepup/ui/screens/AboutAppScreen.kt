@@ -27,7 +27,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun AboutAppScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("about") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -37,7 +37,8 @@ fun AboutAppScreen(navController: NavHostController, onThemeToggle: (Boolean) ->
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = "about"
             )
         }
     ) {

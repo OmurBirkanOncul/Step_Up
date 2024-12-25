@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun ProfileScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("profile") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -38,7 +38,8 @@ fun ProfileScreen(navController: NavHostController, onThemeToggle: (Boolean) -> 
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = "profile"
             )
         }
     ) {

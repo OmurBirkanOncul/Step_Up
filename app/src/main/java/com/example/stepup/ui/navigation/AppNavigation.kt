@@ -25,116 +25,127 @@ fun AppNavigation(navController: NavHostController) {
                     navController = navController
                 )
             }
+        }
 
-            // Profile Screen
-            composable("profile") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    ProfileScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Terms of Use Screen
-            composable("terms_of_use") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    TermsOfUseScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Statistics Screen
-            composable("statistics") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    StatisticsScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Add Screen (FAB ile gidilen ekran)
-            composable("add") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    AddScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Completed Tasks Screen
-            composable("completed") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    CompletedScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Skipped Tasks Screen
-            composable("skipped") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    SkippedScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Notifications Screen
-            composable("notifications") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    NotificationsScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Privacy and Security Screen
-            composable("privacy") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    PrivacyAndSecurityScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // Delete Account Screen
-            composable("delete_account") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    DeleteAccountScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
-            }
-
-            // About App Screen
-            composable("about") {
-                StepUpTheme(darkTheme = isDarkTheme) {
-                    AboutAppScreen(
-                        onThemeToggle = { isDarkTheme = it },
-                        isDarkTheme = isDarkTheme,
-                        navController = navController
-                    )
-                }
+        // Profile Screen
+        composable("profile") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                ProfileScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
             }
         }
+
+        // Terms of Use Screen
+        composable("terms_of_use") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                TermsOfUseScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Statistics Screen
+        composable("statistics") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                StatisticsScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Add Screen (FAB ile gidilen ekran)
+        composable("add") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                AddScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Completed Tasks Screen
+        composable("completed") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                CompletedScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Skipped Tasks Screen
+        composable("skipped") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                SkippedScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Notifications Screen
+        composable("notifications") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                NotificationsScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Privacy and Security Screen
+        composable("privacy") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                PrivacyAndSecurityScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // Delete Account Screen
+        composable("delete_account") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                DeleteAccountScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
+        // About App Screen
+        composable("about") {
+            var isDarkTheme by remember { mutableStateOf(false) }
+            StepUpTheme(darkTheme = isDarkTheme) {
+                AboutAppScreen(
+                    onThemeToggle = { isDarkTheme = it },
+                    isDarkTheme = isDarkTheme,
+                    navController = navController
+                )
+            }
+        }
+
     }
 }

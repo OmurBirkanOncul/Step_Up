@@ -28,7 +28,8 @@ import androidx.navigation.NavHostController
 import com.example.stepup.R
 
 @Composable
-fun Sidebar(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
+fun Sidebar(navController: NavHostController, currentScreen: String, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
+
     Column(
         modifier = Modifier
             .fillMaxHeight()
@@ -45,16 +46,31 @@ fun Sidebar(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, 
             modifier = Modifier.padding(bottom = 16.dp)
         )
 
-        SidebarItem(iconRes = R.drawable.profile, text = "Profile",
-            onClick = { navController.navigate(route = "profile") })
-        SidebarItem(iconRes = R.drawable.about, text = "About App",
-            onClick = { navController.navigate(route = "about") })
-        SidebarItem(iconRes = R.drawable.use, text = "Terms Of Use",
-            onClick = {navController.navigate(route = "terms_of_use") })
-        SidebarItem(iconRes = R.drawable.notification, text = "Notifications",
-            onClick = { navController.navigate(route = "notifications") })
-        SidebarItem(iconRes = R.drawable.privacy, text = "Privacy and Security",
-            onClick = { navController.navigate(route = "privacy") })
+        SidebarItem(
+            iconRes = R.drawable.profile,
+            text = "Profile",
+            onClick = { navController.navigate(route = "profile") },
+            isActive = currentScreen == "profile")
+        SidebarItem(
+            iconRes = R.drawable.about,
+            text = "About App",
+            onClick = { navController.navigate(route = "about") },
+            isActive = currentScreen == "about")
+        SidebarItem(
+            iconRes = R.drawable.use,
+            text = "Terms Of Use",
+            onClick = { navController.navigate(route = "terms_of_use") },
+            isActive = currentScreen == "terms_of_use")
+        SidebarItem(
+            iconRes = R.drawable.notification,
+            text = "Notifications",
+            onClick = { navController.navigate(route = "notifications") },
+            isActive = currentScreen == "notifications")
+        SidebarItem(
+            iconRes = R.drawable.privacy,
+            text = "Privacy and Security",
+            onClick = { navController.navigate(route = "privacy") },
+            isActive = currentScreen == "privacy")
 
         Row(
             modifier = Modifier
@@ -97,19 +113,24 @@ fun SidebarItem(
     text: String,
     textColor: Color = MaterialTheme.colorScheme.onSurface,
     iconTint: Color = MaterialTheme.colorScheme.onSurface,
+    isActive: Boolean = false,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .size(48.dp)
             .clickable { onClick() }
-            .padding(vertical = 8.dp),
+            .background(if (isActive) Color(0xFF026FC7) else MaterialTheme.colorScheme.surface,
+                MaterialTheme.shapes.medium),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             painter = painterResource(id = iconRes),
             contentDescription = text,
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier
+                .padding(start = 8.dp)
+                .size(24.dp),
             colorFilter = ColorFilter.tint(iconTint)
         )
         Spacer(modifier = Modifier.width(16.dp))

@@ -35,7 +35,6 @@ fun NotificationAgreementScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(5.dp)
             .background(MaterialTheme.colorScheme.background),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -46,10 +45,10 @@ fun NotificationAgreementScreen() {
             tint = MaterialTheme.colorScheme.secondary,
             modifier = Modifier.size(80.dp)
         )
-//        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(16.dp))
         Text(
             text = "Turn On Notifications",
-            color = MaterialTheme.colorScheme.secondary,
+            color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineMedium
         )
         Spacer(modifier = Modifier.height(32.dp))
@@ -60,7 +59,8 @@ fun NotificationAgreementScreen() {
                     "your habits and remind you of important " +
                     "tasks. You can enable or disable them as needed.",
             color = MaterialTheme.colorScheme.onSurface,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 16.dp)
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(
@@ -78,23 +78,5 @@ fun NotificationAgreementScreen() {
 
         Spacer(modifier = Modifier.height(80.dp))
 
-        // Terms and Privacy Policy
-        Text(
-            text = "By continuing you agree StepUp’s",
-            fontSize = 12.sp,
-            color = MaterialTheme.colorScheme.secondary,
-            textAlign = TextAlign.Center
-        )
-        ClickableText(
-            text = AnnotatedString("Terms of services & Privacy Policy"),
-            style = TextStyle(
-                color = MaterialTheme.colorScheme.tertiary,
-                fontSize = 12.sp,
-                textAlign = TextAlign.Center
-            ),
-            onClick = {
-                // Tıklanabilir metin işlemi
-            }
-        )
     }
 }

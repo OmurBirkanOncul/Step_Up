@@ -47,7 +47,7 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                     Box(
                         modifier = Modifier
                             .size(40.dp) // karenin boyutunu ayarı
-                            .background(MaterialTheme.colorScheme.primary,
+                            .background(MaterialTheme.colorScheme.background,
                                 shape = MaterialTheme.shapes.medium) // kare
                             .padding(8.dp) // ikonun iç kenar boşluğu
                     ) {
@@ -55,7 +55,7 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                             Icon(
                                 imageVector = Icons.Default.ArrowBack,
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -78,14 +78,15 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                     text = "Relax, we got you covered!",
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.secondary,
+                    color = MaterialTheme.colorScheme.primary,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
+                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = "Habits are essential aspect of our lives. Optimize your life to the fullest!",
                     fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.tertiary,
+                    color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
@@ -110,24 +111,6 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                         fontWeight = FontWeight.Bold
                     )
                 }
-                Spacer(modifier = Modifier.height(80.dp))
-                Text(
-                    text = "By continuing you agree StepUp's",
-                    fontSize = 12.sp,
-                    color = MaterialTheme.colorScheme.secondary,
-                    textAlign = TextAlign.Center
-                )
-                ClickableText(
-                    text = AnnotatedString("Terms of services & Privacy Policy"),
-                    style = TextStyle(
-                        color = MaterialTheme.colorScheme.tertiary,
-                        fontSize = 12.sp,
-                        textAlign = TextAlign.Center
-                    ),
-                    onClick = {
-                        // Gizlilik politikasına tıklama işlemi burada yapılabilir
-                    }
-                )
             }
             // Alert Dialog
             if (showDialog) {

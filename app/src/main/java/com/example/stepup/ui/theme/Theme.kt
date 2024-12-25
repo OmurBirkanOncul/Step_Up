@@ -14,8 +14,9 @@ import androidx.compose.ui.platform.LocalContext
 // Koyu Tema Renk Şeması
 private val DarkColorScheme = darkColorScheme(
     primary = Color(0xFF1664C0), // Mavi
-    secondary = Color(0xFF2FCC71), // Yeşil
+    secondary = Color(0xFF094823), // Yeşil
     tertiary = Color(0xFFFFE066), // Sarı
+    primaryContainer = Color(0xFF2D353E),
     background = Color(0xFF121212), // Koyu arka plan
     surface = Color(0xFF1E1E1E), // Kartlar için yüzey
     onPrimary = Color.White,
@@ -28,8 +29,9 @@ private val DarkColorScheme = darkColorScheme(
 // Açık Tema Renk Şeması
 private val LightColorScheme = lightColorScheme(
     primary = Color(0xFF2196F3), // Mavi
-    secondary = Color(0xFF2FCC71), // Yeşil
+    secondary = Color(0xFF2B9720), // Yeşil
     tertiary = Color(0xFFFF7F00), // Sarının karşılığı olan turuncu
+    primaryContainer = Color(0xFF1664C0),
     background = Color(0xFFFFFFFF), // Açık arka plan
     surface = Color(0xFFF2F2F2), // Kartlar için yüzey
     onPrimary = Color.White,

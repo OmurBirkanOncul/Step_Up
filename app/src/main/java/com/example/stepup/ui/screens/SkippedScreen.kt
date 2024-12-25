@@ -43,7 +43,7 @@ fun SkippedScreen(navController: NavHostController, onThemeToggle: (Boolean) -> 
         Task3("Skipped Walk", "Skipped the 30-minute walk")
     )
 
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("skipped") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -53,7 +53,8 @@ fun SkippedScreen(navController: NavHostController, onThemeToggle: (Boolean) -> 
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = currentScreen
             )
         }
     ) {
@@ -84,7 +85,7 @@ fun SkippedScreen(navController: NavHostController, onThemeToggle: (Boolean) -> 
             bottomBar = {
                 BottomNavBar(
                     navController = navController,
-                    currentScreen = currentScreen,
+                    currentScreen = "skipped",
                     onScreenSelected = { selectedScreen ->
                         currentScreen = selectedScreen
                         navController.navigate(selectedScreen)

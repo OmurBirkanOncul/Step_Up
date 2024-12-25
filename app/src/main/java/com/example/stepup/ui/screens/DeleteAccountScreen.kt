@@ -21,7 +21,7 @@ import com.example.stepup.ui.components.Sidebar
 
 @Composable
 fun DeleteAccountScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("delete_account") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -31,7 +31,8 @@ fun DeleteAccountScreen(navController: NavHostController, onThemeToggle: (Boolea
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = "delete_account"
             )
         }
     ) {

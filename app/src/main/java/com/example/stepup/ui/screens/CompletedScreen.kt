@@ -43,7 +43,7 @@ fun CompletedScreen(navController: NavHostController, onThemeToggle: (Boolean) -
         Task2("Drink Water", "Drink 2L of water today")
     )
 
-    var currentScreen by remember { mutableStateOf("Home") } // Seçili ekranı takip eden değişken
+    var currentScreen by remember { mutableStateOf("completed") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -53,7 +53,8 @@ fun CompletedScreen(navController: NavHostController, onThemeToggle: (Boolean) -
             Sidebar(
                 onThemeToggle = onThemeToggle,
                 isDarkTheme = isDarkTheme,
-                navController = navController
+                navController = navController,
+                currentScreen = currentScreen
             )
         }
     ) {
@@ -84,7 +85,7 @@ fun CompletedScreen(navController: NavHostController, onThemeToggle: (Boolean) -
             bottomBar = {
                 BottomNavBar(
                     navController = navController,
-                    currentScreen = currentScreen,
+                    currentScreen = "completed",
                     onScreenSelected = { selectedScreen ->
                         currentScreen = selectedScreen
                         navController.navigate(selectedScreen)
