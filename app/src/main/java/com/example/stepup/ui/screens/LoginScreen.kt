@@ -1,3 +1,4 @@
+//create new account sayfası(projenin 5.sayfası)
 package com.example.stepup.ui.screens
 
 import android.os.Bundle
