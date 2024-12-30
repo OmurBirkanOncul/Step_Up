@@ -12,18 +12,20 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.stepup.ui.screens.AccountCreatedScreen
 import com.example.stepup.ui.screens.LoginScreen
+import com.example.stepup.ui.screens.StepUpScreen
 import com.example.stepup.ui.theme.StepUpTheme
 
 
-/*class MainActivity : ComponentActivity() {
+class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
-                LoginScreen()
+            StepUpTheme {
+                AccountCreatedScreen()
             }
         }
     }
-}*/
+}
 

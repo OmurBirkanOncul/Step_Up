@@ -11,11 +11,13 @@ import androidx.compose.foundation.background // Arkaplan rengi için gerekli k�
 import androidx.compose.foundation.clickable // Tıklanabilir alanlar oluşturmak için
 import androidx.compose.foundation.layout.* // Layout düzenlemeleri için
 import androidx.compose.foundation.shape.RoundedCornerShape // Yuvarlatılmış köşeler için
-import androidx.compose.material.Button // Material Design butonları için
-import androidx.compose.material.ButtonDefaults // Buton varsayılan ayarlarını değiştirmek için
-import androidx.compose.material.Icon // İkon eklemek için
-import androidx.compose.material.icons.Icons // İkonlar koleksiyonu için
-import androidx.compose.material.icons.filled.Email // E-posta simgesi için
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import com.example.stepup.R
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text // Text bileşeni için
 import androidx.compose.runtime.Composable // Composable fonksiyonları tanımlamak için
 import androidx.compose.ui.Alignment // Hizalama için
@@ -24,24 +26,34 @@ import androidx.compose.ui.graphics.Color // Renkler için
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight // Yazı fontu ağırlığı için
 import androidx.compose.ui.text.style.TextAlign // Yazı hizalama için
-import androidx.compose.ui.tooling.preview.Preview // Önizleme modu için
 import androidx.compose.ui.unit.dp // Piksel birimleriyle ölçüm yapmak için
 import androidx.compose.ui.unit.sp // Yazı büyüklüğünü ayarlamak için
+
+/*class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            StepUpTheme {
+                StepUpScreen()
+            }
+        }
+    }
+}*/
 
 @Composable
 fun StepUpScreen() { // Kullanıcı arayüzünü oluşturan fonksiyon
     Column( // Elemanları dikey hizalar
         modifier = Modifier
             .fillMaxSize() // Ekranı tamamen doldurur
-            .background(Color.DarkGray), // Arkaplan rengini koyu gri yapar
+            .background(MaterialTheme.colorScheme.background), // Arkaplan rengini koyu gri yapar
         horizontalAlignment = Alignment.CenterHorizontally, // Elemanları yatayda ortalar
         verticalArrangement = Arrangement.Top // Elemanları dikeyde üste hizalar
     )
     {
         Spacer(modifier = Modifier.height(200.dp))
         // STEPUP Başlığı
-        androidx.compose.material3.Icon(
-            painter = painterResource(id = R.drawable.StepUp),
+        Icon(
+            painter = painterResource(id = R.drawable.step_up),
             contentDescription = "Contract Icon",
             tint = Color(0xFF03A9F4),
             modifier = Modifier.size(200.dp)
@@ -52,7 +64,7 @@ fun StepUpScreen() { // Kullanıcı arayüzünü oluşturan fonksiyon
 
         Button( // Buton bileşeni
             onClick = { /* Yeni Hesap Oluştur */ }, // Tıklama işlemi
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF03A9F4)), // Buton rengi
+            colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary), // Buton rengi
             shape = RoundedCornerShape(16.dp), // Butonun köşelerini yumuşatır
             modifier = Modifier.padding(bottom = 8.dp) // Alt boşluk bırakır
         ) {
@@ -70,11 +82,11 @@ fun StepUpScreen() { // Kullanıcı arayüzünü oluşturan fonksiyon
         ) {
             Text(
                 text = "Already have an account? ", // Bilgilendirme metni
-                color = Color(0xFFFFE066) // Sarı renk
+                color = MaterialTheme.colorScheme.secondary // Sarı renk
             )
             Text(
                 text = "Log in", // Giriş yap metni
-                color = Color(0xFF2FCC71), // Yeşil renk
+                color = MaterialTheme.colorScheme.tertiary, // Yeşil renk
                 fontWeight = FontWeight.Bold, // Kalın font
                 modifier = Modifier.clickable { /* Giriş Yap */ } // Tıklanabilirlik ekler
             )
@@ -88,13 +100,13 @@ fun StepUpScreen() { // Kullanıcı arayüzünü oluşturan fonksiyon
         ) {
             Text(
                 text = "By continuing you agree StepUp's", // Bilgilendirme metni
-                color = Color(0xFF2FCC71), // Yeşil renk
+                color = MaterialTheme.colorScheme.tertiary, // Yeşil renk
                 textAlign = TextAlign.Center, // Metni ortalar
                 fontSize = 12.sp // Yazı büyüklüğü
             )
             Text(
                 text = "Terms of Service & Privacy Policy", // Alt bilgilendirme metni
-                color = Color(0xFFFFE066), // Sarı renk
+                color = MaterialTheme.colorScheme.secondary, // Sarı renk
                 textAlign = TextAlign.Center, // Metni ortalar
                 fontSize = 12.sp // Yazı büyüklüğü
             )
@@ -102,17 +114,4 @@ fun StepUpScreen() { // Kullanıcı arayüzünü oluşturan fonksiyon
     }
 }
 
-class file : ComponentActivity() { // Activity sınıfı
-    override fun onCreate(savedInstanceState: Bundle?) { // Aktivite başlatıldığında çalışır
-        super.onCreate(savedInstanceState)
-        setContent { // Composable fonksiyonu çağırır
-            StepUpScreen()
-        }
-    }
-}
 
-@Preview(showBackground = true) // Önizleme modu sağlar
-@Composable
-fun PreviewStepUpScreen() { // StepUpScreen için önizleme
-    StepUpScreen()
-}

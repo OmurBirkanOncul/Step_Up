@@ -33,11 +33,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.stepup.R
 
-/*class accountcreate : ComponentActivity() {
+/*class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            StepUpTheme {
                 AccountCreatedScreen() // Burada kendi Composable'ını çağır
             }
         }
@@ -49,7 +49,7 @@ fun AccountCreatedScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF303030)) // Dark background
+            .background(MaterialTheme.colorScheme.background) //  background
             .padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -69,7 +69,7 @@ fun AccountCreatedScreen() {
         Text(
             text = "Your account\nwas successfully created!",
             fontSize = 24.sp,
-            color = Color(0xFF2FCC71), // Green color
+            color = MaterialTheme.colorScheme.secondary, // Green color
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )
@@ -80,7 +80,7 @@ fun AccountCreatedScreen() {
         Text(
             text = "Only one click to explore online\neducation.",
             fontSize = 16.sp,
-            color = Color.White,
+            color = Color(0xFF869197),
             textAlign = TextAlign.Center
         )
 
@@ -90,7 +90,7 @@ fun AccountCreatedScreen() {
         Button(
             onClick = { /* TODO: Handle login click */ },
             colors = ButtonDefaults.buttonColors(
-                containerColor = Color(0xFF1664C0) // Blue color
+                containerColor = MaterialTheme.colorScheme.primary // Blue color
             ),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -108,15 +108,15 @@ fun AccountCreatedScreen() {
         Spacer(modifier = Modifier.height(200.dp)) // Alttaki yazıya mesafe için gerekli boşluk
 
         // Terms of Service and Privacy Policy
-        androidx.compose.material.Text(
+        Text(
             text = "By continuing you agree StepUp’s", // Kullanıcı bilgilendirme metni
-            color =Color(0xFF2FCC71), // Yeşil renk
+            color = MaterialTheme.colorScheme.secondary, // Yeşil renk
             fontSize = 14.sp, // Yazı boyutu
             modifier = Modifier.align(Alignment.CenterHorizontally) // Ortaya hizalar
         )
-        androidx.compose.material.Text(
+        Text(
             text = "Terms of services & Privacy Policy", // Kullanıcı bilgilendirme metni
-            color =Color(0xFFFFE066), // Sarı renk
+            color = MaterialTheme.colorScheme.tertiary, // Sarı renk
             fontSize = 14.sp, // Yazı boyutu
             modifier = Modifier.align(Alignment.CenterHorizontally) // Ortaya hizalar
         )

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MaterialTheme {
+            StepUpTheme {
                 LoginScreen()
             }
         }
@@ -60,7 +60,7 @@ fun LoginScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF1C1C1E))
+            .background(MaterialTheme.colorScheme.background)
             .padding(horizontal = 16.dp, vertical = 24.dp)
     ) {
         BackButton(onClick = { /* Handle back navigation */ })
@@ -70,7 +70,7 @@ fun LoginScreen() {
         Text(
             text = "Log in",
             fontSize = 24.sp,
-            color = Color(0xFFFFE066),
+            color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
 
@@ -79,7 +79,7 @@ fun LoginScreen() {
         // E-posta Alanı
         Text(
             text = "Your Email",
-            color = Color(0xFFFFE066),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 16.sp
         )
         var email by remember { mutableStateOf("") }
@@ -104,7 +104,7 @@ fun LoginScreen() {
         // Şifre Alanı
         Text(
             text = "Your Password",
-            color = Color(0xFFFFE066),
+            color = MaterialTheme.colorScheme.primary,
             fontSize = 16.sp
         )
         var password by remember { mutableStateOf("") }
@@ -127,7 +127,7 @@ fun LoginScreen() {
                 }
             },
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Color(0xFF2FCC71),
+                focusedBorderColor = MaterialTheme.colorScheme.secondary,
                 unfocusedBorderColor = Color.Gray,
                 focusedTextColor = Color.White,
                 unfocusedTextColor = Color.White,
@@ -140,7 +140,7 @@ fun LoginScreen() {
 
         Text(
             text = "Forget password?",
-            color = Color(0xFF2FCC71),
+            color = Color(0xFF869197),
             modifier = Modifier.align(Alignment.End)
         )
 
@@ -152,7 +152,7 @@ fun LoginScreen() {
             modifier = Modifier
                 .fillMaxWidth()
                 .height(48.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF1664C0)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
             shape = RoundedCornerShape(16.dp)
         ) {
             Text(text = "Log In", color = Color.White)
@@ -162,13 +162,13 @@ fun LoginScreen() {
 
         Text(
             text = "By continuing you agree StepUp’s",
-            color = Color(0xFF2FCC71),
+            color = MaterialTheme.colorScheme.secondary,
             fontSize = 14.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
         Text(
             text = "Terms of services & Privacy Policy",
-            color = Color(0xFFFFE066),
+            color = MaterialTheme.colorScheme.tertiary,
             fontSize = 14.sp,
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
