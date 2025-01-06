@@ -72,4 +72,6 @@ dependencies {
     implementation(libs.compose.material.icons.extended)
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.coil.compose)
+
 }

@@ -3,18 +3,7 @@ package com.example.stepup
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.stepup.ui.screens.AccountCreatedScreen
-import com.example.stepup.ui.screens.LoginScreen
-import com.example.stepup.ui.screens.StepUpScreen
+import com.example.stepup.ui.screens.ContractScreen
 import com.example.stepup.ui.theme.StepUpTheme
 
 
@@ -23,7 +12,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             StepUpTheme {
-                AccountCreatedScreen()
+               ContractScreen()
             }
         }
     }
