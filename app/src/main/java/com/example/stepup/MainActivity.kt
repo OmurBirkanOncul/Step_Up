@@ -3,8 +3,6 @@ package com.example.stepup
 import com.example.stepup.ui.screens.PasswordRecoveryScreen
 import com.example.stepup.ui.screens.NotificationAgreementScreen
 import com.example.stepup.ui.screens.CreateAccountScreen
-import com.example.stepup.ui.screens.HomeScreen
-import com.example.stepup.ui.screens.TermsOfUseScreen
 import androidx.activity.ComponentActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
@@ -24,11 +22,15 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val isDarkTheme by remember { mutableStateOf(false) }
+            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 val navController = rememberNavController()
-                AppNavigation(navController)
+                AppNavigation(
+                    navController = navController,
+                    isDarkTheme = isDarkTheme,
+                    onThemeToggle = { isDarkTheme = it })
             }
         }
     }
 }
+

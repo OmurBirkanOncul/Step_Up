@@ -17,6 +17,7 @@ import com.example.stepup.R
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.NavHostController
 import com.example.stepup.ui.theme.StepUpTheme
 
 /*class MainActivity : ComponentActivity() {
@@ -24,14 +25,16 @@ import com.example.stepup.ui.theme.StepUpTheme
         super.onCreate(savedInstanceState)
         setContent {
             StepUpTheme() {
-                NotificationAgreementScreen( )
+                val navController = rememberNavController()
+                NotificationAgreementScreen(navController = navController)
             }
         }
     }
 }*/
 
 @Composable
-fun NotificationAgreementScreen() {
+fun NotificationAgreementScreen(navController: NavHostController) {
+    var currentScreen by remember { mutableStateOf("agreement") }
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -64,13 +67,13 @@ fun NotificationAgreementScreen() {
         )
         Spacer(modifier = Modifier.height(32.dp))
         Button(
-            onClick = { /* Bildirimleri aç */ },
+            onClick = { navController.navigate("home") },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         ) {
             Text("Allow notifications")
         }
         Button(
-            onClick = { /* Daha sonra */ },
+            onClick = { navController.navigate("home") },
             colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         ) {
             Text("Maybe later")

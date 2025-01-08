@@ -5,6 +5,8 @@ import androidx.compose.ui.res.painterResource
 import com.example.stepup.R
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,8 +18,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.stepup.ui.components.Sidebar
-
-//BU SAYFA NAV DENEME İÇİN YAPILDI
 
 @Composable
 fun DeleteAccountScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
@@ -39,24 +39,59 @@ fun DeleteAccountScreen(navController: NavHostController, onThemeToggle: (Boolea
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("") },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.background
-                    ),
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                    title = {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(start = 50.dp),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.delete),
+                                    contentDescription = "Delete Icon",
+                                    tint = MaterialTheme.colorScheme.tertiary,
+                                    modifier = Modifier.size(25.dp)
+                                )
+                                Text(
+                                    text = "Delete Account",
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.sidebar),
-                                contentDescription = "Menu Icon",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.tertiary
-                            )
                         }
-                    }
+                    },
+                    navigationIcon = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                                }
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.sidebar),
+                                    contentDescription = "Menu Icon",
+                                    modifier = Modifier.size(24.dp),
+                                    tint = MaterialTheme.colorScheme.tertiary
+                                )
+                            }
+                            IconButton(onClick = { navController.navigate("home") }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                    modifier = Modifier.height(70.dp)
                 )
             },
             content = { innerPadding ->
@@ -70,59 +105,61 @@ fun DeleteAccountScreen(navController: NavHostController, onThemeToggle: (Boolea
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .padding(16.dp),
+                            .padding(20.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Spacer(modifier = Modifier.height(70.dp))
+
                         Text(
                             text = "Are you sure you want to delete your account?",
-                            fontSize = 20.sp,
+                            fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.padding(bottom = 16.dp)
+                            modifier = Modifier.padding(33.dp)
                         )
 
                         Text(
-                            text = "This action cannot be undone. You will lose all your data associated with this account.",
+                            text = "Once you perform this action, it cannot be undone.",
                             fontSize = 14.sp,
                             color = MaterialTheme.colorScheme.onSurface,
                             modifier = Modifier.padding(bottom = 32.dp)
                         )
+                        Spacer(modifier = Modifier.height(70.dp))
 
-                        // Geri Dön Butonu
-                        Button(
-                            onClick = {
-                                navController.popBackStack() // Önceki ekrana dön
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        // Cancel and Delete Buttons
+                        Row(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 32.dp)
+                                .padding(horizontal = 32.dp),
+                            horizontalArrangement = Arrangement.SpaceBetween
                         ) {
-                            Text(
-                                text = "Cancel",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
-                        }
+                            Button(
+                                onClick = { navController.navigate("home") },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF707070)),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = "Cancel",
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
 
-                        Spacer(modifier = Modifier.height(16.dp))
+                            Spacer(modifier = Modifier.width(16.dp))
 
-                        // Hesabı Sil Butonu
-                        Button(
-                            onClick = {
-                                // Hesap silme işlemi burada yapılır
-                                navController.navigate("logout") // Hesabı sildikten sonra çıkış yap
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4444)), // Kırmızı
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 32.dp)
-                        ) {
-                            Text(
-                                text = "Delete My Account",
-                                color = Color.White,
-                                fontSize = 16.sp
-                            )
+                            Button(
+                                onClick = {
+                                    navController.navigate("logout") // Hesabı sildikten sonra çıkış yapılır
+                                },
+                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF4444)),
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(
+                                    text = "Delete",
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            }
                         }
                     }
                 }

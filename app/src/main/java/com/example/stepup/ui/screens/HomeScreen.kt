@@ -42,21 +42,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import androidx.navigation.compose.rememberNavController
 
-/*class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            var isDarkTheme by remember { mutableStateOf(false) }
-            StepUpTheme(darkTheme = isDarkTheme) {
-                HomeScreen(
-                    onThemeToggle = { isDarkTheme = it },
-                    isDarkTheme = isDarkTheme
-                )
-            }
-        }
-    }
-}*/
-
 data class Task(
     val title: String,        // Task başlığı
     val description: String,  // Task açıklaması

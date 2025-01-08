@@ -12,15 +12,14 @@ import com.example.stepup.ui.screens.*
 import com.example.stepup.ui.theme.StepUpTheme
 
 @Composable
-fun AppNavigation(navController: NavHostController) {
+fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThemeToggle: (Boolean) -> Unit) {
     NavHost(navController = navController, startDestination = "home") {
 
-        // Home Screen
+        // Home Screen tam
         composable("home") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 HomeScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
@@ -29,34 +28,32 @@ fun AppNavigation(navController: NavHostController) {
 
         // Profile Screen
         composable("profile") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 ProfileScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
             }
         }
 
-        // Terms of Use Screen
+        // Terms of Use Screen tam
         composable("terms_of_use") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 TermsOfUseScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
-                    navController = navController
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
                 )
             }
         }
 
         // Statistics Screen
         composable("statistics") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 StatisticsScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
@@ -65,10 +62,9 @@ fun AppNavigation(navController: NavHostController) {
 
         // Add Screen (FAB ile gidilen ekran)
         composable("add") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 AddScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
@@ -77,10 +73,9 @@ fun AppNavigation(navController: NavHostController) {
 
         // Completed Tasks Screen
         composable("completed") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 CompletedScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
@@ -89,59 +84,66 @@ fun AppNavigation(navController: NavHostController) {
 
         // Skipped Tasks Screen
         composable("skipped") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 SkippedScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
             }
         }
 
-        // Notifications Screen
+        // Notifications Screen tam
         composable("notifications") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 NotificationsScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
-                    navController = navController
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
                 )
             }
         }
 
-        // Privacy and Security Screen
+        // Privacy and Security Screen tam
         composable("privacy") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 PrivacyAndSecurityScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
-                    navController = navController
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
                 )
             }
         }
 
         // Delete Account Screen
         composable("delete_account") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 DeleteAccountScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
                 )
             }
         }
 
-        // About App Screen
+        // About App Screen tam
         composable("about") {
-            var isDarkTheme by remember { mutableStateOf(false) }
             StepUpTheme(darkTheme = isDarkTheme) {
                 AboutAppScreen(
-                    onThemeToggle = { isDarkTheme = it },
+                    onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+        }
+
+        //Notifications Agreement Screen
+        composable("agreement") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                NotificationAgreementScreen(
                     navController = navController
                 )
             }

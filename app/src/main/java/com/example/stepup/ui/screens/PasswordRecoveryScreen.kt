@@ -46,10 +46,10 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                 navigationIcon = {
                     Box(
                         modifier = Modifier
-                            .size(40.dp) // karenin boyutunu ayarı
+                            .size(40.dp)
                             .background(MaterialTheme.colorScheme.background,
-                                shape = MaterialTheme.shapes.medium) // kare
-                            .padding(8.dp) // ikonun iç kenar boşluğu
+                                shape = MaterialTheme.shapes.medium)
+                            .padding(8.dp)
                     ) {
                         IconButton(onClick = onBackClick) {
                             Icon(
@@ -61,15 +61,14 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                     }
                 },
                 title = { },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.background)
+                colors = TopAppBarDefaults.topAppBarColors (containerColor = MaterialTheme.colorScheme.background)
             )
         },
         content = { innerPadding ->
             Column(
                 modifier = Modifier
-                    .fillMaxSize()
                     .padding(innerPadding)
+                    .height(700.dp)
                     .padding(horizontal = 16.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -102,8 +101,7 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                         showDialog = true // Dialog gösterilecek
                     },
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
-                    colors = ButtonDefaults.buttonColors
-                            (containerColor = MaterialTheme.colorScheme.primary)
+                    colors = ButtonDefaults.buttonColors (containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text(
                         text = "Send recovery email",

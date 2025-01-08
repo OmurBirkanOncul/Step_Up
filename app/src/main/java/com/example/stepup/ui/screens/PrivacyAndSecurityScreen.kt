@@ -1,9 +1,9 @@
 package com.example.stepup.ui.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,11 +26,11 @@ import com.example.stepup.ui.components.Sidebar
 import kotlinx.coroutines.launch
 
 @Composable
-fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    val currentScreen by remember { mutableStateOf("privacy") } // Seçili ekranı takip eden değişken
+fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean, onBackClick: () -> Unit) {
+    var currentScreen by remember { mutableStateOf("privacy") } // Seçili ekranı takip eden değişken
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    //Sidebar
+
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -43,27 +43,61 @@ fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (B
         }
     ) {
         Scaffold(
-            //Sidebar
             topBar = {
                 TopAppBar(
-                    title = { Text("") },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = MaterialTheme.colorScheme.background
-                    ),
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                    title = {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(start = 40.dp),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.privacy),
+                                    contentDescription = "Privacy Icon",
+                                    tint = MaterialTheme.colorScheme.tertiary,
+                                    modifier = Modifier.size(25.dp)
+                                )
+                                Text(
+                                    text = "Privacy & Security",
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                    fontSize = 25.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.sidebar),
-                                contentDescription = "Menu Icon",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.tertiary
-                            )
                         }
-                    }
+                    },
+                    navigationIcon = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                                }
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.sidebar),
+                                    contentDescription = "Menu Icon",
+                                    modifier = Modifier.size(24.dp),
+                                    tint = MaterialTheme.colorScheme.tertiary
+                                )
+                            }
+                            IconButton(onClick = { navController.navigate("home") }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.background),
+                    modifier = Modifier.height(70.dp)
                 )
             },
             content = { innerPadding ->
@@ -80,34 +114,14 @@ fun PrivacyAndSecurityScreen(navController: NavHostController, onThemeToggle: (B
                             .padding(16.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        // Başlık
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(bottom = 16.dp)
-                        ) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.privacy),
-                                contentDescription = "Privacy Icon",
-                                tint = MaterialTheme.colorScheme.tertiary,
-                                modifier = Modifier.size(28.dp)
-                            )
-                            Spacer(modifier = Modifier.width(8.dp))
-                            Text(
-                                text = "Terms Of Use",
-                                color = MaterialTheme.colorScheme.tertiary,
-                                fontSize = 22.sp,
-                                fontWeight = FontWeight.Bold
-                            )
-                        }
-
-                        // Metin
                         Text(
-                            text = "StepUp values your privacy and is committed to protecting your personal information. All user data is securely encrypted and stored, ensuring it is protected from unauthorized access. We collect and use data only to improve the app’s functionality and provide a better user experience, as outlined in our Privacy Policy. You can manage your privacy preferences through the app’s settings. By using StepUp, you agree to our secure handling of your data.",
-                            color = MaterialTheme.colorScheme.onBackground,
+                            text = """
+StepUp values your privacy and is committed to protecting your personal information. All user data is securely encrypted and stored, ensuring it is protected from unauthorized access. We collect and use data only to improve the app’s functionality and provide a better user experience, as outlined in our Privacy Policy. You can manage your privacy preferences through the app’s settings. By using StepUp, you agree to our secure handling of your data.
+                            """.trimIndent(),
                             fontSize = 14.sp,
-                            lineHeight = 20.sp,
+                            color = MaterialTheme.colorScheme.onSurface,
                             textAlign = TextAlign.Justify,
-                            modifier = Modifier.padding(bottom = 16.dp)
+                            modifier = Modifier.padding(4.dp)
                         )
                     }
                 }
