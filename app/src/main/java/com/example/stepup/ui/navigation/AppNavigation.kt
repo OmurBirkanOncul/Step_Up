@@ -5,6 +5,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -100,7 +101,8 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
                     onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController,
-                    onBackClick = { navController.popBackStack() }
+                    onBackClick = { navController.popBackStack() },
+                    context = LocalContext.current
                 )
             }
         }

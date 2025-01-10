@@ -1,5 +1,7 @@
 package com.example.stepup.ui.screens
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.background
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -11,26 +13,32 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.stepup.R
 import kotlinx.coroutines.launch
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.stepup.helpers.PreferencesHelper
+import com.example.stepup.helpers.NotificationService
 import com.example.stepup.ui.components.Sidebar
 
 @Composable
-fun NotificationsScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean,onBackClick: () -> Unit) {
-    var currentScreen by remember { mutableStateOf("notifications") } // Seçili ekranı takip eden değişken
+fun NotificationsScreen(
+    navController: NavHostController,
+    onThemeToggle: (Boolean) -> Unit,
+    isDarkTheme: Boolean,
+    onBackClick: () -> Unit,
+    context: Context
+) {
+    val preferencesHelper = PreferencesHelper(context)
+    var areNotificationsEnabled by remember {
+        mutableStateOf(preferencesHelper.areNotificationsEnabled())
+    }
+
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
 
@@ -60,11 +68,10 @@ fun NotificationsScreen(navController: NavHostController, onThemeToggle: (Boolea
                             ) {
                                 Icon(
                                     painter = painterResource(id = R.drawable.notification),
-                                    contentDescription = "Notification Icon",
+                                    contentDescription = "Privacy Icon",
                                     tint = MaterialTheme.colorScheme.tertiary,
-                                    modifier = Modifier.size(30.dp)
+                                    modifier = Modifier.size(25.dp)
                                 )
-                                Spacer(modifier = Modifier.width(8.dp))
                                 Text(
                                     text = "Notifications",
                                     color = MaterialTheme.colorScheme.tertiary,
@@ -119,14 +126,40 @@ fun NotificationsScreen(navController: NavHostController, onThemeToggle: (Boolea
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(
-                            text = """
-StepUp sends notifications to remind you of your daily habits, motivate progress, and encourage consistency. You can customize the type, frequency, and timing of notifications based on your preferences. Notifications can be enabled or disabled anytime through the app's settings, allowing you to control which reminders you receive. By using StepUp, you agree to receive notifications to support your habit-building journey.
-                            """.trimIndent(),
+                            text = "StepUp sends notifications to remind you of your daily habits, motivate progress, and encourage consistency. You can customize the type, frequency, and timing of notifications based on your preferences. Notifications can be enabled or disabled anytime through the app's settings, allowing you to control which reminders you receive. By using StepUp, you agree to receive notifications to support your habit-building journey.",
                             fontSize = 14.sp,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            textAlign = TextAlign.Justify,
-                            modifier = Modifier.padding(4.dp)
+                            fontWeight = FontWeight.Medium
                         )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = if (areNotificationsEnabled) "Notifications Enabled" else "Notifications Disabled",
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Switch(
+                                checked = areNotificationsEnabled,
+                                onCheckedChange = { isChecked ->
+                                    areNotificationsEnabled = isChecked
+                                    preferencesHelper.setNotificationsEnabled(isChecked)
+
+                                    if (isChecked) {
+                                        // Servisi başlat
+                                        context.startService(
+                                            Intent(context, NotificationService::class.java)
+                                        )
+                                    } else {
+                                        // Servisi durdur
+                                        context.stopService(
+                                            Intent(context, NotificationService::class.java)
+                                        )
+                                    }
+                                }
+                            )
+                        }
                     }
                 }
             }
