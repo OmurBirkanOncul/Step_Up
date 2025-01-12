@@ -31,13 +31,13 @@ fun TimeAndDescScreen(
                         text = "Add Description",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFFF9800), // Turuncu başlık rengi
+                        color = MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White // Beyaz arka plan
+                            containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
@@ -54,7 +54,7 @@ fun TimeAndDescScreen(
                     text = "Choose a Time (Visual Only)",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2196F3),
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 Row(
@@ -76,7 +76,7 @@ fun TimeAndDescScreen(
                     text = "Description",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF2196F3),
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 OutlinedTextField(
@@ -98,7 +98,8 @@ fun TimeAndDescScreen(
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.White, shape = MaterialTheme.shapes.medium)
+                        .background(MaterialTheme.colorScheme.background,
+                            shape = MaterialTheme.shapes.medium)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -110,7 +111,7 @@ fun TimeAndDescScreen(
                 ) {
                     Button(
                         onClick = { navController.navigate("home") },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5722)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF869197)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 8.dp)
@@ -128,7 +129,7 @@ fun TimeAndDescScreen(
                             onDescriptionEntered(description)
                             navController.navigate("choose_icon?taskTitle=$taskTitle&description=$description")
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF043054)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 8.dp)

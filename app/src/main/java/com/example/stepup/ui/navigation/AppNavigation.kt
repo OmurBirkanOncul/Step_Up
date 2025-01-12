@@ -191,5 +191,72 @@ fun AppNavigation(
                 NotificationAgreementScreen(navController = navController)
             }
         }
+
+        // LoginScreenn
+        composable("start") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                StepUpScreen(
+                    navController = navController
+                )
+            }
+        }
+
+        // LoginScreen
+        composable("login") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                LoginScreen(
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+        }
+
+        // Create Account Screen
+        composable("newaccount") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                CreateAccountScreen (
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() }
+                )
+            }
+        }
+
+        // Create Profile
+        composable("createprofile") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                CreateProfileScreen(
+                    navController = navController
+                )
+            }
+        }
+
+        // Create Account
+        composable("create_account") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                AccountCreatedScreen(
+                    navController = navController
+                )
+            }
+        }
+
+        // Contract File
+        composable("contract") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                ContractScreen(
+                    navController = navController
+                )
+            }
+        }
+
+        // Password Recovery
+        composable("password_recovery") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                PasswordRecoveryScreen(
+                    navController = navController,
+                    onBackClick = { navController.popBackStack() },
+                    email = String.toString()
+                )
+            }
+        }
     }
 }

@@ -25,6 +25,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,22 +43,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.stepup.R
 
-
-
-/*class CreateProfile: ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            CreateProfileScreen()
-        }
-    }
-}*/
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CreateProfileScreen() {
+fun CreateProfileScreen(navController: NavHostController) {
     var name by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
@@ -77,8 +67,7 @@ fun CreateProfileScreen() {
 
     Box(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color(0xFF2C2A2A)),
+            .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -90,7 +79,7 @@ fun CreateProfileScreen() {
                 text = "Create A Profile!",
                 fontSize = 24.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color(0xFFFFE066),
+                color = MaterialTheme.colorScheme.tertiary,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
 
@@ -126,28 +115,28 @@ fun CreateProfileScreen() {
             Spacer(modifier = Modifier.height(25.dp))
 
             TextFieldSection("What's your name?", "Name", name) { name = it }
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             TextFieldSection("What's your username?", "Username", username) { username = it }
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             TextFieldSection(
                 "Phone number",
                 "Phone Number",
                 phoneNumber,
                 keyboardType = KeyboardType.Phone
             ) { phoneNumber = it }
-            Spacer(modifier = Modifier.height(15.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             TextFieldSection("About me", "About Me", aboutMe) { aboutMe = it }
 
             Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = { /* Devam et işlemleri */ },
+                onClick = { navController.navigate("create_account") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(48.dp),
-                shape = RoundedCornerShape(16.dp),
+                shape = MaterialTheme.shapes.extraLarge,
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color(0xFF1664C0),
+                    containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = Color.White
                 )
             ) {
@@ -173,7 +162,7 @@ fun TextFieldSection(
         text = label,
         fontSize = 16.sp,
         fontWeight = FontWeight.Bold,
-        color = Color(0xFF1664C0),
+        color = MaterialTheme.colorScheme.primary,
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 4.dp, bottom = 4.dp)
@@ -184,10 +173,9 @@ fun TextFieldSection(
         label = { Text(placeholder) },
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
         modifier = Modifier
-            .fillMaxWidth()
-            .background(Color.DarkGray),
+            .fillMaxWidth(),
         singleLine = true,
-        textStyle = TextStyle(color = Color.White),
+        textStyle = TextStyle(color = MaterialTheme.colorScheme.onBackground),
         shape = RoundedCornerShape(12.dp)
     )
 }

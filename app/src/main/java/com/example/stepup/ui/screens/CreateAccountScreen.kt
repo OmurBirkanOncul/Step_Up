@@ -20,27 +20,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavHostController
 import com.example.stepup.R
 import com.example.stepup.ui.theme.StepUpTheme
 
-/*class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            StepUpTheme {
-                CreateAccountScreen(
-                    onBackClick = { finish() } // Geri tuşuna tıklanınca kapanır
-                )
-            }
-        }
-    }
-}*/
-
 @Composable
-fun CreateAccountScreen(onBackClick: () -> Unit) {
+fun CreateAccountScreen(navController: NavHostController, onBackClick: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    val currentScreen by remember { mutableStateOf("newaccount") }
 
     Scaffold (
         topBar = {
@@ -163,7 +152,7 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
 
                 // Create Button
                 Button(
-                    onClick = { /* TODO: Hesap oluşturma işlemi */ },
+                    onClick = { navController.navigate("createprofile") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(48.dp),
@@ -182,10 +171,4 @@ fun CreateAccountScreen(onBackClick: () -> Unit) {
             }
         }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CreateAccountScreenPreview() {
-    CreateAccountScreen(onBackClick = {})
 }

@@ -42,13 +42,13 @@ fun ChooseIconScreen(
                         text = "Choose Icon",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFFF9800),
+                        color = MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
@@ -65,7 +65,8 @@ fun ChooseIconScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .background(Color(0xFF2196F3), shape = MaterialTheme.shapes.medium)
+                        .background(Color(0xFFCEE9F4),
+                            shape = MaterialTheme.shapes.medium)
                         .padding(16.dp)
                 ) {
                     LazyVerticalGrid(
@@ -79,7 +80,7 @@ fun ChooseIconScreen(
                                     .padding(4.dp)
                                     .size(70.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = if (selectedIcon == iconList[index]) Color.White else Color(0xFF2196F3)
+                                    containerColor = if (selectedIcon == iconList[index]) Color.White else Color(0xFFCEE9F4)
                                 )
                             ) {
                                 Icon(
@@ -101,7 +102,7 @@ fun ChooseIconScreen(
                 ) {
                     Button(
                         onClick = { navController.navigate("home") },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5722)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF869197)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 8.dp)

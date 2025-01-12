@@ -19,25 +19,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.stepup.ui.theme.StepUpTheme
 
-/*class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            StepUpTheme {
-                PasswordRecoveryScreen(
-                    email = "",
-                    onBackClick = { finish() } // Geri tuşuna basınca uygulama kapanır
-                )
-            }
-        }
-    }
-}*/
-
-
 @Composable
-fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
+fun PasswordRecoveryScreen(navController: NavHostController, email: String, onBackClick: () -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -116,10 +102,7 @@ fun PasswordRecoveryScreen(email: String, onBackClick: () -> Unit) {
                     onDismissRequest = { showDialog = false },
                     confirmButton = {
                         Button(
-                            onClick = {
-                                showDialog = false
-                                // Login ekranına yönlendirme yapılacak
-                            }
+                            onClick = { navController.navigate("login") }
                         ) {
                             Text(text = "Back to login!")
                         }

@@ -1,6 +1,4 @@
 package com.example.stepup.ui.screens
-
-
 // Uygulamanın paket adı
 
 import android.os.Bundle
@@ -31,21 +29,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.stepup.R
 
-/*class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            StepUpTheme {
-                AccountCreatedScreen() // Burada kendi Composable'ını çağır
-            }
-        }
-    }
-}*/
-
 @Composable
-fun AccountCreatedScreen() {
+fun AccountCreatedScreen(navController: NavHostController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,14 +44,10 @@ fun AccountCreatedScreen() {
     ) {
         // Checkmark Image
         Image(
-            painter = painterResource(id = R.drawable.tikicon), // Replace with your drawable
+            painter = painterResource(id = R.drawable.tikicon),
             contentDescription = "Checkmark Icon",
-            modifier = Modifier
-                .size(100.dp)
-                .clip(RoundedCornerShape(10.dp))
+            modifier = Modifier.size(200.dp),
         )
-
-        Spacer(modifier = Modifier.height(24.dp))
 
         // Success Message
         Text(
@@ -80,15 +64,15 @@ fun AccountCreatedScreen() {
         Text(
             text = "Only one click to explore online\neducation.",
             fontSize = 16.sp,
-            color = Color(0xFF869197),
+            color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
 
-        Spacer(modifier = Modifier.height(150.dp)) // Butonun biraz daha aşağıda görünmesi için artırılmış boşluk
+        Spacer(modifier = Modifier.height(100.dp)) // Butonun biraz daha aşağıda görünmesi için artırılmış boşluk
 
         // Log In Button
         Button(
-            onClick = { /* TODO: Handle login click */ },
+            onClick = { navController.navigate("contract") },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary // Blue color
             ),
@@ -98,27 +82,11 @@ fun AccountCreatedScreen() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Text(
-                text = "Log In",
+                text = "Next",
                 color = Color.White,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
         }
-
-        Spacer(modifier = Modifier.height(200.dp)) // Alttaki yazıya mesafe için gerekli boşluk
-
-        // Terms of Service and Privacy Policy
-        Text(
-            text = "By continuing you agree StepUp’s", // Kullanıcı bilgilendirme metni
-            color = MaterialTheme.colorScheme.secondary, // Yeşil renk
-            fontSize = 14.sp, // Yazı boyutu
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Ortaya hizalar
-        )
-        Text(
-            text = "Terms of services & Privacy Policy", // Kullanıcı bilgilendirme metni
-            color = MaterialTheme.colorScheme.tertiary, // Sarı renk
-            fontSize = 14.sp, // Yazı boyutu
-            modifier = Modifier.align(Alignment.CenterHorizontally) // Ortaya hizalar
-        )
     }
 }

@@ -73,7 +73,7 @@ fun OnboardingScreen(navController: NavController) {
                     // Skip Button
                     TextButton(
                         onClick = {
-                            navController.navigate("home") {
+                            navController.navigate("start") {
                                 popUpTo("onboarding") { inclusive = true }
                             }
                         }

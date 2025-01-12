@@ -200,7 +200,7 @@ fun UserProfileField(label: String, value: String) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
-                .background(MaterialTheme.colorScheme.surface,
+                .background(MaterialTheme.colorScheme.primaryContainer.copy(alpha=0.1f),
                     shape = MaterialTheme.shapes.medium)
         ) {
             Text(

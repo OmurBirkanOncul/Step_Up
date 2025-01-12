@@ -31,13 +31,13 @@ fun AddTaskTitleScreen(navController: NavController, onTitleEntered: (String) ->
                         text = "Add New Task",
                         fontSize = 24.sp,
                         fontWeight = FontWeight.Bold,
-                        color = Color(0xFFFF9800),
+                        color = MaterialTheme.colorScheme.tertiary,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.background
                 )
             )
         },
@@ -53,7 +53,7 @@ fun AddTaskTitleScreen(navController: NavController, onTitleEntered: (String) ->
                     text = "What's your task title?",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF3F51B5),
+                    color = MaterialTheme.colorScheme.primary,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
                 OutlinedTextField(
@@ -67,7 +67,7 @@ fun AddTaskTitleScreen(navController: NavController, onTitleEntered: (String) ->
                     },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.White)
+                        .background(MaterialTheme.colorScheme.background)
                 )
 
                 Spacer(modifier = Modifier.weight(1f))
@@ -78,7 +78,7 @@ fun AddTaskTitleScreen(navController: NavController, onTitleEntered: (String) ->
                 ) {
                     Button(
                         onClick = { navController.navigate("home") },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF5722)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF869197)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(end = 8.dp)
@@ -95,7 +95,7 @@ fun AddTaskTitleScreen(navController: NavController, onTitleEntered: (String) ->
                         onClick = {
                             onTitleEntered(taskTitle)
                         },
-                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF4CAF50)),
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF043054)),
                         modifier = Modifier
                             .weight(1f)
                             .padding(start = 8.dp)
