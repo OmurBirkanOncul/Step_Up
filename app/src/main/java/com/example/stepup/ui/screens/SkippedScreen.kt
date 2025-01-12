@@ -1,51 +1,33 @@
 package com.example.stepup.ui.screens
 
 import androidx.compose.foundation.background
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
-import com.example.stepup.R
-import com.example.stepup.ui.components.BottomNavBar
-import kotlinx.coroutines.launch
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import com.example.stepup.R
+import com.example.stepup.ui.components.BottomNavBar
 import com.example.stepup.ui.components.Sidebar
-
-//BU SAYFA NAV DENEME İÇİN YAPILDI
-
-data class Task3(
-    val title: String,
-    val description: String
-)
+import kotlinx.coroutines.launch
 
 @Composable
-fun SkippedScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    val skippedTasks = listOf(
-        Task3("Skip Homework", "Did not finish the math exercises"),
-        Task3("Missed Workout", "Missed the workout session today"),
-        Task3("No Water", "Didn't drink 2L of water today"),
-        Task3("Postpone Reading", "Postponed reading 20 pages of Atomic Habits"),
-        Task3("Skipped Walk", "Skipped the 30-minute walk")
-    )
-
-    var currentScreen by remember { mutableStateOf("skipped") } // Seçili ekranı takip eden değişken
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
+fun SkippedScreen(
+    navController: NavHostController,
+    onThemeToggle: (Boolean) -> Unit,
+    isDarkTheme: Boolean
+) {
     val scope = rememberCoroutineScope()
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    var currentScreen by remember { mutableStateOf("skipped") }
 
     ModalNavigationDrawer(
         drawerState = drawerState,
@@ -61,106 +43,122 @@ fun SkippedScreen(navController: NavHostController, onThemeToggle: (Boolean) -> 
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text("") },
+                    title = {
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 70.dp),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Text(
+                                text = "Skipped Tasks",
+                                color = MaterialTheme.colorScheme.tertiary,
+                                fontSize = 25.sp,
+                                fontWeight = FontWeight.Bold
+                            )
+                        }
+                    },
+                    navigationIcon = {
+                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                            IconButton(onClick = {
+                                scope.launch {
+                                    if (drawerState.isClosed) drawerState.open() else drawerState.close()
+                                }
+                            }) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.sidebar),
+                                    contentDescription = "Menu Icon",
+                                    tint = MaterialTheme.colorScheme.tertiary,
+                                    modifier = Modifier.size(24.dp)
+                                )
+                            }
+                        }
+                    },
                     colors = TopAppBarDefaults.topAppBarColors(
                         containerColor = MaterialTheme.colorScheme.background
                     ),
-                    navigationIcon = {
-                        IconButton(onClick = {
-                            scope.launch {
-                                if (drawerState.isClosed) drawerState.open() else drawerState.close()
-                            }
-                        }) {
-                            Icon(
-                                painter = painterResource(id = R.drawable.sidebar),
-                                contentDescription = "Menu Icon",
-                                modifier = Modifier.size(24.dp),
-                                tint = MaterialTheme.colorScheme.tertiary
-                            )
-                        }
-                    }
+                    modifier = Modifier.height(70.dp)
                 )
             },
-            //BottomNavBar
             bottomBar = {
                 BottomNavBar(
                     navController = navController,
-                    currentScreen = "skipped",
+                    currentScreen = currentScreen,
                     onScreenSelected = { selectedScreen ->
                         currentScreen = selectedScreen
                         navController.navigate(selectedScreen)
                     }
                 )
-            },
-            content = { innerPadding ->
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(innerPadding)
-                        .background(MaterialTheme.colorScheme.background),
-                    contentAlignment = Alignment.TopCenter
-                ) {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = "Your Skipped Tasks",
-                            fontSize = 24.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-
-                        Spacer(modifier = Modifier.height(16.dp))
-
-                        // Görevlerin Listesi
-                        LazyColumn(modifier = Modifier.fillMaxSize()) {
-                            items(skippedTasks) { task ->
-                                SkippedTaskCard(
-                                    title = task.title,
-                                    description = task.description
-                                )
-                                Spacer(modifier = Modifier.height(8.dp))
-                            }
-                        }
-                    }
-                }
             }
-        )
+        ) {
+            SkippedTaskList(modifier = Modifier.padding(it))
+        }
     }
 }
 
 @Composable
-fun SkippedTaskCard(
-    title: String,
-    description: String
-) {
+fun SkippedTaskList(modifier: Modifier = Modifier) {
+    val tasks = listOf(
+        "Turn off your phone" to "Take a breath!",
+        "Take a break" to "One more step—let’s crush it!",
+        "Do a digital file cleanup" to "Strong habits, stronger you!",
+        "Assign tasks to members" to "Dream big, act small!",
+        "Follow-Up after meetings" to "Your body will thank you tomorrow!",
+        "Set focus your project" to "Every day is a fresh start!",
+        "Attend Conferences" to "Small steps lead to big changes!"
+    )
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        tasks.forEach { (title, subtitle) ->
+            SkippedTaskCard(title = title, subtitle = subtitle)
+        }
+    }
+}
+
+@Composable
+fun SkippedTaskCard(title: String, subtitle: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp),
-        shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFFF57F17)) // Turuncu arka plan
+            .clickable { /* Add Action */ },
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+        elevation = CardDefaults.elevatedCardElevation(4.dp)
     ) {
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            Text(
-                text = title,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White
-            )
-            Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = description,
-                fontSize = 14.sp,
-                color = Color.White
-            )
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(Color.Yellow, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("T", fontWeight = FontWeight.Bold, color = Color.Black)
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Column(modifier = Modifier.weight(1f)) {
+                Text(title, color = Color.Yellow, fontSize = 18.sp, fontWeight = FontWeight.Bold)
+                Text(subtitle, color = Color.Gray, fontSize = 14.sp)
+            }
+
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(Color.Yellow, shape = CircleShape),
+                contentAlignment = Alignment.Center
+            ) {
+                Text("-", fontWeight = FontWeight.Bold, color = Color.Black, fontSize = 20.sp)
+            }
         }
     }
 }

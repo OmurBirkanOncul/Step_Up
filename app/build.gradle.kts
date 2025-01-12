@@ -74,4 +74,8 @@ dependencies {
     implementation(libs.compose.material.icons.extended)
     implementation(libs.accompanist.swiperefresh)
     implementation(libs.kotlinx.coroutines.android)
+    implementation ("com.google.accompanist:accompanist-pager:0.30.1")
+    implementation ("com.google.accompanist:accompanist-pager-indicators:0.30.1")
+    implementation ("androidx.compose.material:material-icons-extended:1.5.1")
+    implementation("androidx.compose.material3:material3:1.1.0-beta01")
 }
