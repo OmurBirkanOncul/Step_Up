@@ -1,30 +1,84 @@
 package com.example.stepup.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.stepup.ui.screens.*
 import com.example.stepup.ui.theme.StepUpTheme
+import com.example.stepup.models.Task
 
 @Composable
-fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThemeToggle: (Boolean) -> Unit) {
-    NavHost(navController = navController, startDestination = "home") {
+fun AppNavigation(
+    navController: NavHostController,
+    isDarkTheme: Boolean,
+    onThemeToggle: (Boolean) -> Unit
+) {
+    // Shared task list
+    val taskList = remember { mutableStateListOf<Task>() }
 
-        // Home Screen tam
+    NavHost(navController = navController, startDestination = "onboarding") {
+
+        composable("onboarding") {
+            StepUpTheme(darkTheme = isDarkTheme) {
+                OnboardingScreen(navController = navController)
+            }
+        }
+
+        // Home Screen
         composable("home") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 HomeScreen(
                     onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
-                    navController = navController
+                    navController = navController,
+                    taskList = taskList // Passing shared task list
                 )
             }
+        }
+
+        // Add Task Title Screen
+        composable("add_task_title") {
+            AddTaskTitleScreen(
+                navController = navController,
+                onTitleEntered = { title ->
+                    // Navigate to the next screen with title as argument
+                    navController.navigate("choose_time?taskTitle=$title")
+                }
+            )
+        }
+
+        // Choose Time and Description Screen
+        composable("choose_time?taskTitle={taskTitle}") { backStackEntry ->
+            val taskTitle = backStackEntry.arguments?.getString("taskTitle") ?: ""
+            TimeAndDescScreen(
+                navController = navController,
+                taskTitle = taskTitle,
+                onDescriptionEntered = { description ->
+                    navController.navigate("choose_icon?taskTitle=$taskTitle&description=$description")
+                }
+            )
+        }
+
+        // Choose Icon Screen
+        composable("choose_icon?taskTitle={taskTitle}&description={description}") { backStackEntry ->
+            val taskTitle = backStackEntry.arguments?.getString("taskTitle") ?: ""
+            val description = backStackEntry.arguments?.getString("description") ?: ""
+
+            ChooseIconScreen(
+                navController = navController,
+                taskTitle = taskTitle,
+                description = description,
+                onTaskSave = { task ->
+                    taskList.add(task)
+                    navController.navigate("home") {
+                        popUpTo("home") { inclusive = true }
+                    }
+                }
+            )
         }
 
         // Profile Screen
@@ -38,7 +92,7 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
             }
         }
 
-        // Terms of Use Screen tam
+        // Terms of Use Screen
         composable("terms_of_use") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 TermsOfUseScreen(
@@ -54,17 +108,6 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
         composable("statistics") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 StatisticsScreen(
-                    onThemeToggle = onThemeToggle,
-                    isDarkTheme = isDarkTheme,
-                    navController = navController
-                )
-            }
-        }
-
-        // Add Screen (FAB ile gidilen ekran)
-        composable("add") {
-            StepUpTheme(darkTheme = isDarkTheme) {
-                AddScreen(
                     onThemeToggle = onThemeToggle,
                     isDarkTheme = isDarkTheme,
                     navController = navController
@@ -94,7 +137,7 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
             }
         }
 
-        // Notifications Screen tam
+        // Notifications Screen
         composable("notifications") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 NotificationsScreen(
@@ -107,7 +150,7 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
             }
         }
 
-        // Privacy and Security Screen tam
+        // Privacy and Security Screen
         composable("privacy") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 PrivacyAndSecurityScreen(
@@ -130,7 +173,7 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
             }
         }
 
-        // About App Screen tam
+        // About App Screen
         composable("about") {
             StepUpTheme(darkTheme = isDarkTheme) {
                 AboutAppScreen(
@@ -142,14 +185,11 @@ fun AppNavigation(navController: NavHostController, isDarkTheme: Boolean, onThem
             }
         }
 
-        //Notifications Agreement Screen
+        // Notifications Agreement Screen
         composable("agreement") {
             StepUpTheme(darkTheme = isDarkTheme) {
-                NotificationAgreementScreen(
-                    navController = navController
-                )
+                NotificationAgreementScreen(navController = navController)
             }
         }
-
     }
 }

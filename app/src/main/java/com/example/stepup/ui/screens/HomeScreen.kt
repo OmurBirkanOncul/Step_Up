@@ -7,7 +7,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -23,7 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.pointer.consumeAllChanges
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -31,7 +29,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.stepup.R
 import com.example.stepup.ui.components.BottomNavBar
@@ -40,21 +37,13 @@ import com.example.stepup.ui.theme.StepUpTheme
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
-import androidx.navigation.compose.rememberNavController
-
-data class Task(
-    val title: String,        // Task başlığı
-    val description: String,  // Task açıklaması
-    val timeLabel: String,    // Zaman etiketi
-    val iconId: Int           // İkon ID
-)
+import com.example.stepup.models.Task
 
 @Composable
 fun SwipeableTaskCard(
     iconId: Int, // Seçilen ikonun drawable ID'si
     title: String,
-    description: String,
-    timeLabel: String
+    description: String
 ) {
     var offsetX by remember { mutableStateOf(0f) } // Kartın kaydırma pozisyonu
     val animatedOffsetX by animateFloatAsState(targetValue = offsetX)
@@ -76,7 +65,7 @@ fun SwipeableTaskCard(
         ) {
             Spacer(modifier = Modifier.width(8.dp)) // Hafif boşluk
             Button(
-                onClick = {/*Skip*/ },
+                onClick = { /*Complete*/ },
                 shape = MaterialTheme.shapes.large,
                 colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary),
                 modifier = Modifier
@@ -87,7 +76,7 @@ fun SwipeableTaskCard(
             }
             Spacer(modifier = Modifier.width(4.dp))
             Button(
-                onClick = {/*Skip*/ },
+                onClick = { /*Skip*/ },
                 shape = MaterialTheme.shapes.large,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF1BC30)),
                 modifier = Modifier
@@ -98,7 +87,7 @@ fun SwipeableTaskCard(
             }
             Spacer(modifier = Modifier.width(4.dp))
             Button(
-                onClick = {/*Skip*/ },
+                onClick = { /*Delete*/ },
                 shape = MaterialTheme.shapes.large,
                 colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF2C2C)),
                 modifier = Modifier
@@ -128,7 +117,7 @@ fun SwipeableTaskCard(
                 .zIndex(1f),
             shape = RoundedCornerShape(18.dp),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF87CEFA))
-        ){
+        ) {
             Spacer(modifier = Modifier.height(8.dp))
             Row(
                 modifier = Modifier
@@ -138,7 +127,7 @@ fun SwipeableTaskCard(
             ) {
                 // Sol Taraf: İkon
                 Image(
-                    painter = painterResource(id = iconId), // İkon resource
+                    painter = painterResource(id = iconId),
                     contentDescription = "Task Icon",
                     modifier = Modifier
                         .size(40.dp)
@@ -151,24 +140,10 @@ fun SwipeableTaskCard(
                         fontWeight = FontWeight.Bold,
                         color = Color(0xFF1664C0)
                     )
-                    //Spacer(modifier = Modifier.height(4.dp))
                     Text(
                         text = description,
                         fontSize = 12.sp,
                         color = Color.DarkGray
-                    )
-                }
-
-                // Sağ Taraf: Zaman Etiketi
-                Box(
-                    modifier = Modifier
-                        .background(Color(0xFFFFE082), RoundedCornerShape(16.dp))
-                        .padding(horizontal = 8.dp, vertical = 2.dp)
-                ) {
-                    Text(
-                        text = timeLabel,
-                        color = Color(0xFF8D4B00),
-                        fontWeight = FontWeight.Bold
                     )
                 }
             }
@@ -176,33 +151,21 @@ fun SwipeableTaskCard(
     }
 }
 
-
 @Composable
-fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Unit, isDarkTheme: Boolean) {
-    var currentScreen by remember { mutableStateOf("home") } // Seçili ekranı takip eden değişken
+fun HomeScreen(
+    navController: NavHostController,
+    onThemeToggle: (Boolean) -> Unit,
+    isDarkTheme: Boolean,
+    taskList: List<Task> // Dinamik görev listesi
+) {
+    var currentScreen by remember { mutableStateOf("home") }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     val scope = rememberCoroutineScope()
-    //var taskList by remember { mutableStateOf(listOf<Task>()) } // Dinamik Task Listesi
     val currentDate = LocalDate.now()
     val formattedDate = currentDate.format(DateTimeFormatter.ofPattern("dd MMMM, yyyy"))
     val days = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
 
-    val taskList = listOf(
-        Task(
-            title = "Complete Homework", description = "Do Math Exercises",
-            timeLabel = "30 Min", iconId = R.drawable.skip
-        ),
-        Task(
-            title = "Go for a Run", description = "Run 3 KM",
-            timeLabel = "1 Hr", iconId = R.drawable.vector
-        ),
-        Task(
-            title = "Read a Book", description = "Read 20 pages",
-            timeLabel = "45 Min", iconId = R.drawable.cancel
-        )
-    )
-
-//Sidebar
+    // Sidebar
     ModalNavigationDrawer(
         drawerState = drawerState,
         drawerContent = {
@@ -237,8 +200,6 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                     }
                 )
             },
-
-            //BottomNavBar
             bottomBar = {
                 BottomNavBar(
                     navController = navController,
@@ -249,8 +210,6 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                     }
                 )
             },
-
-            //Body
             content = { innerPadding ->
                 Column(
                     modifier = Modifier
@@ -259,11 +218,8 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                         .background(MaterialTheme.colorScheme.background),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    // Profil Resmi
-                    Box(
-                        contentAlignment = Alignment.Center,
-                        modifier = Modifier.size(80.dp)
-                    ) {
+                    // Profil Resmi ve Tarih
+                    Box(contentAlignment = Alignment.Center, modifier = Modifier.size(80.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.profile),
                             contentDescription = "Profile Picture",
@@ -273,9 +229,7 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                             contentScale = ContentScale.Crop
                         )
                     }
-
                     Spacer(modifier = Modifier.height(8.dp))
-
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier.padding(horizontal = 16.dp)
@@ -287,7 +241,6 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                                 .size(32.dp)
                                 .padding(end = 8.dp)
                         )
-                        // Gün ve Tarih
                         Text(
                             text = formattedDate,
                             color = MaterialTheme.colorScheme.onBackground,
@@ -306,21 +259,15 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         days.forEachIndexed { index, day ->
-                            val isToday = index == currentDate.dayOfWeek.value - 1 // Olunan gün kontrolü
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally
-                            ) {
-                                // Gün İsmi
+                            val isToday = index == currentDate.dayOfWeek.value - 1
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = day,
                                     color = Color(0xFF8FD4F8),
                                     fontWeight = FontWeight.SemiBold,
                                     fontSize = 14.sp
                                 )
-
                                 Spacer(modifier = Modifier.height(4.dp))
-
-                                // Tarih Kısmı
                                 Box(
                                     contentAlignment = Alignment.Center,
                                     modifier = Modifier
@@ -343,30 +290,15 @@ fun HomeScreen(navController: NavHostController, onThemeToggle: (Boolean) -> Uni
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // "My Tasks" Butonu
-                    Button(
-                        onClick = { /* Navigate to Tasks */ },
-                        shape = RoundedCornerShape(20.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.background),
-                        modifier = Modifier
-                            .width(200.dp)
-                            .height(50.dp)
-                    ) {
-                        Text("My Tasks", color = MaterialTheme.colorScheme.onBackground, fontSize = 20.sp)
-                    }
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    //Task List
+                    // Görev Listesi
                     LazyColumn(modifier = Modifier.fillMaxSize()) {
                         items(taskList) { task ->
                             SwipeableTaskCard(
                                 iconId = task.iconId,
                                 title = task.title,
-                                description = task.description,
-                                timeLabel = task.timeLabel
+                                description = task.description
                             )
-                            Spacer(modifier = Modifier.height(4.dp)) //Card arası boşluk
+                            Spacer(modifier = Modifier.height(4.dp))
                         }
                     }
                 }

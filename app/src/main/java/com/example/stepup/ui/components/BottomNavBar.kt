@@ -81,7 +81,7 @@ fun BottomNavBar(navController: NavHostController, currentScreen: String, onScre
                 modifier = Modifier.size(80.dp) // FAB'nin çerçeve boyutu
             ) {
                 FloatingActionButton(
-                    onClick = { navController.navigate("add") },
+                    onClick = { navController.navigate("add_task_title") },
                     containerColor = Color.Transparent, // arka plan rengi şeffaf
                     contentColor = Color.Unspecified,
                     elevation = FloatingActionButtonDefaults.elevation(0.dp), // Gölgeyi kaldır
